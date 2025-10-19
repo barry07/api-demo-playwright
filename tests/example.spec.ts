@@ -7,20 +7,17 @@ test('GET request', async ({ request }) => {
 
   console.log('Status:', response.status());
 
-  let responseObject;
-  try {
-    responseObject = await response.json();
-  } catch (err) {
-    console.error('❌ Failed to parse JSON:', err);
-    return; // stop test if parsing fails
-  }
+  const responseObject = await response.json();
 
-  // Log first element if array
-  if (Array.isArray(responseObject)) {
-    console.log('✅ First element:', responseObject[0]);
-  } else {
-    console.log('ℹ️ Response is not an array:', responseObject);
-  }
+  // Print keys to inspect
+  console.log('Keys:', Object.keys(responseObject));
+
+  // Get the first property and its value
+  const firstKey = Object.keys(responseObject)[1];
+  const firstValue = responseObject[firstKey];
+
+  console.log(`First property: ${firstKey}`);
+  console.log('Value:', firstValue);
 
   // Example assertion
   expect(response.status()).toBe(200);
